@@ -1,0 +1,73 @@
+<!-- pass a reference to this input field using a template var #title -->
+<div class="container ">
+  <form #f="ngForm" (ngSubmit)="submit(f.value)" hidden>
+    <div class="formGroup panel panel-primary">
+      <div class="panel-heading">
+      <label for="postTitle"> Post Title</label>
+      <input 
+      required
+      minlength="2"
+      ngModel 
+      name="postTitle"
+      #postTitle = "ngModel" 
+      type="text" 
+      class="form-control">
+    </div>
+    <div
+    *ngIf="postTitle.touched && postTitle.invalid" 
+    class="alert alert-danger">
+      <div *ngIf="postTitle.errors.required">
+        Post Title is required. 
+      </div>  
+      <div *ngIf="postTitle.errors.minlength">
+          Post Title must be at least {{postTitle.errors.minlength.requiredLength}} characters. 
+        </div>
+    </div>
+    <div class="panel-body">
+      <label for="postText"> Post Body </label>
+      <input 
+      required
+      minlength="2"
+      ngModel
+      name="postBody"
+      #postBody = "ngModel" 
+      type="text" 
+      class="form-control">
+      <div 
+      *ngIf="postBody.touched && postBody.invalid"  
+      class="alert alert-danger">
+      <div *ngIf="postBody.errors.required">
+          Post Body is required. 
+        </div>  
+        <div *ngIf="postBody.errors.minlength">
+            Post Body must be at least {{postBody.errors.minlength.requiredLength}} characters. 
+          </div>
+      </div>
+    </div>
+    <p> {{f.value | json }} </p>
+    <button 
+    [disabled]="!f.valid"    
+    class="btn btn-success"
+    name="submit">
+    Create Post
+    </button>
+  </div>
+
+  
+  </form>
+  <!-- End of form -->
+  <input #input (keyup.enter)="createPost(input)" type="text" class="form-control">
+  <div *ngFor="let post of posts; let i = index" class="panel panel-primary">
+    <div class="panel-heading"> {{i + 1}} - {{post.title}}
+    <button 
+    (click)=updatePost(post)
+    class="btn btn-default btn-sm"> Update </button>
+    <button 
+    (click)="deletePost(post)"
+    class="btn btn-danger btn-sm">
+      Delete
+    </button>
+  </div>
+    <div class="panel-body"> {{post.body}}</div>
+  </div>
+</div>

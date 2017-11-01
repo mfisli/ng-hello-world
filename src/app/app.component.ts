@@ -6,5 +6,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
-}
+  title = 'Testing Playground';
+	courses = [
+      { name:'couse1'},
+      { name:'couse2'},
+      { name:'couse3'}
+    ];
+    onRemove(course){
+      let index = this.courses.indexOf(course);
+      console.log(index);
+      this.courses.splice(index,1);
+    }
+  }

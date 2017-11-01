@@ -1,0 +1,14 @@
+<div class="zippy">
+    <div class="zippy-title"
+      [class.expanded]= "isExpanded"
+      (click)="toggle()">
+      {{ title }}
+    <span class="glyphicon" 
+    [class.glyphicon-chevron-down] = "!isExpanded"
+    [class.glyphicon-chevron-up] = "isExpanded"></span>
+  </div>
+  <div class="zippy-body" *ngIf="isExpanded">
+    <!-- inject markup from the outside -->
+    <ng-content></ng-content> 
+  </div>
+</div>

@@ -1,0 +1,57 @@
+<form action="" #f="ngForm"     (ngSubmit)="submit(f.value)">
+  <div class="form-group">
+  <label for="courseName"> Course Name</label><br/>
+  <input   
+    required
+    minlength="3"
+    ngModel
+    #courseName="ngModel"
+    type="text" 
+    name="courseName"
+    class="form-control"><br/>
+    <div class="alert alert-danger"
+      *ngIf="!courseName.valid && courseName.touched" >
+      <div
+        *ngIf="courseName.errors.required" >
+          Name is required. 
+      </div>  
+      <div
+        *ngIf="courseName.errors.minlength" >
+          Name must be at least {{ courseName.errors.minlength.requiredLength }} characters
+      </div> 
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="courseType"> Course Type</label><br/>
+      <select 
+      required
+      ngModel
+      #courseType="ngModel"
+      name="ngModel"
+      type="select" name="courseType"
+      class="form-control">
+        <option></option>
+        <option 
+        *ngFor="let course of coursesTypes" [id]=course.id> 
+          {{course.type}} 
+        </option>
+      </select>
+      <div class="alert alert-danger"
+        *ngIf="!courseType.valid && courseType.touched">
+        Course Type is required.
+      </div>
+  </div>
+  <div class="checkbox">
+      
+    <label for="gauarantee">
+        <input ngModel name="hasGauarantee" type="checkbox" id="gauarantee">
+      {{guaranteeText}}
+    </label>
+  </div>    
+  <p> {{f.value | json }} </p>
+  <button 
+    [disabled]="!f.valid"
+    class="btn btn-primary" 
+    name="submit"> Create </button>
+  
+</form>
